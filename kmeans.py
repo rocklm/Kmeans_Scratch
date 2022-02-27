@@ -425,8 +425,8 @@ if __name__ == '__main__':
     import matplotlib.colors
 
     #import test dataset
-    data = pd.read_csv('C:\\Side Projects\\iris.csv', index_col = 0)
-    data.drop(columns = 'Species', inplace = True)
+    full_data = pd.read_csv('C:\\Side Projects\\Kmeans_scratch\\iris.csv', index_col = 0)
+    data = full_data.drop(columns = 'Species')
     data = data.iloc[:,0:3]
 
     #call kmeans class
@@ -490,4 +490,7 @@ if __name__ == '__main__':
     ax.set_zlabel('Petal Length')
     plt.show()
 
-
+    #see how well cluster works
+    #compare cluster to species category
+    val = test_df.join(full_data['Species'])
+    val.groupby(['Cluster', 'Species']).count()
